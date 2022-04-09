@@ -1,12 +1,7 @@
 package com.gloria.common
 
-import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.gloria.common.network.VideoApi
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
 
 import org.junit.Test
 import org.junit.runner.RunWith
