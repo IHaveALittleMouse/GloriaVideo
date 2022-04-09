@@ -3,8 +3,9 @@ package com.gloria.gloriavideo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
+import com.gloria.common.card.CardLayout
 import com.gloria.common.network.VideoApi
+import com.gloria.common.network.VideoBean
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
@@ -13,8 +14,9 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
 
     private val TAG = "MainActivity"
-    private var btnGetData: Button? = null
+    private var card0: CardLayout? = null
     private var scope: CoroutineScope? = null
+    private var videoList: List<VideoBean>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,23 +32,28 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        btnGetData = findViewById(R.id.btn_get_data)
+        card0 = findViewById(R.id.cl_test)
     }
 
     private fun initAction() {
-        btnGetData?.setOnClickListener { getVideoData() }
+        getVideoData()
     }
 
     private fun getVideoData() {
         scope = MainScope()
         scope?.launch {
             try {
-                val result = VideoApi.createVideoApi().requestData()
-                Log.d(TAG, result.toString())
+                videoList = VideoApi.createVideoApi().requestData()
+                Log.d(TAG, videoList.toString())
+                setVideoData()
             }catch (e: Exception){
                 e.printStackTrace()
                 Log.e(TAG, e.toString())
             }
         }
+    }
+
+    private fun setVideoData() {
+        videoList?.get(0)?.let { card0?.setVideoBean(it) }
     }
 }
