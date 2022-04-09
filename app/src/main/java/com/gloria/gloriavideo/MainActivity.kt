@@ -3,6 +3,8 @@ package com.gloria.gloriavideo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.LinearLayout
+import android.widget.ScrollView
 import com.gloria.common.card.CardLayout
 import com.gloria.common.network.VideoApi
 import com.gloria.common.network.VideoBean
@@ -14,7 +16,7 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
 
     private val TAG = "MainActivity"
-    private var card0: CardLayout? = null
+    private var linearLayout: LinearLayout? = null
     private var scope: CoroutineScope? = null
     private var videoList: List<VideoBean>? = null
 
@@ -32,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        card0 = findViewById(R.id.cl_test)
+        linearLayout = findViewById(R.id.ll_show_cards)
     }
 
     private fun initAction() {
@@ -54,6 +56,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setVideoData() {
-        videoList?.get(0)?.let { card0?.setVideoBean(it) }
+        for(item in videoList!!) {
+            val card = CardLayout(this, null)
+            linearLayout?.addView(card)
+            card.setVideoBean(item)
+        }
     }
 }
