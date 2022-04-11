@@ -1,5 +1,6 @@
 package com.gloria.gloriavideo
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -60,6 +61,12 @@ class MainActivity : AppCompatActivity() {
             val card = CardLayout(this, null)
             linearLayout?.addView(card)
             card.setVideoBean(item)
+
+            card.setOnClickListener {
+                val intent = Intent(applicationContext, DetailActivity::class.java)
+                intent.putExtra("url", item.feedurl)
+                startActivity(intent)
+            }
         }
     }
 }
